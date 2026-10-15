@@ -1,0 +1,25 @@
+{
+  "name": "pawpass",
+  "version": "1.0.0",
+  "description": "PawPass — a pet care app for tracking pet health and handing care off to a sitter.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [],
+  "author": "Sree Rachnae Shyam, Sai Venkatesh Varun Muruganandam Murali Krishnan",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.3.0",
+    "mongodb": "^7.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "@eslint/js": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.3"
+  }
+}

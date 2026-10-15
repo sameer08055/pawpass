@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Sitter Profile — PawPass</title>
+    <meta name="author" content="Sree Rachnae Shyam" />
+    <meta
+      name="description"
+      content="Manage your PawPass sitter profile, services, and availability."
+    />
+    <link rel="stylesheet" href="../css/sitter-profile.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a href="../index.html" class="site-nav__brand">PawPass</a>
+      <ul class="site-nav__links">
+        <li><a href="my-sitter-profile.html">My Sitter Profile</a></li>
+        <li><a href="my-sits.html">My Sits</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <h1>My Sitter Profile</h1>
+
+      <!-- ===== Profile details ===== -->
+      <section>
+        <h2>Profile Details</h2>
+        <form id="profileForm">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="bio">Bio</label>
+          <textarea id="bio" name="bio" rows="3"></textarea>
+
+          <label for="location">Location / neighborhood</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="e.g. Mission District, SF"
+          />
+
+          <div class="field-row">
+            <div>
+              <label for="lat">Latitude</label>
+              <input type="number" id="lat" name="lat" step="any" />
+            </div>
+            <div>
+              <label for="lon">Longitude</label>
+              <input type="number" id="lon" name="lon" step="any" />
+            </div>
+          </div>
+
+          <button type="submit">Save Profile</button>
+          <p id="profileStatus" class="status-message" role="status"></p>
+        </form>
+      </section>
+
+      <!-- ===== Services ===== -->
+      <section id="servicesSection" class="disabled">
+        <h2>Services I Offer</h2>
+        <ul id="servicesList"></ul>
+
+        <form id="addServiceForm">
+          <label for="newServiceSpecies">Species</label>
+          <select id="newServiceSpecies" required>
+            <option value="Dogs">Dogs</option>
+            <option value="Cats">Cats</option>
+            <option value="Rabbits">Rabbits</option>
+          </select>
+
+          <label for="newServiceRate">Rate ($/day)</label>
+          <input type="number" id="newServiceRate" min="0" required />
+
+          <label for="newServiceNotes">What should owners prepare?</label>
+          <textarea
+            id="newServiceNotes"
+            rows="2"
+            placeholder="e.g. Bring their bed and food"
+          ></textarea>
+
+          <button type="submit">Add Service</button>
+        </form>
+        <p id="servicesStatus" class="status-message" role="status"></p>
+      </section>
+
+      <!-- ===== Availability ===== -->
+      <section id="availabilitySection" class="disabled">
+        <h2>Availability This Month</h2>
+        <p class="hint">Click a day to mark yourself available or unavailable.</p>
+        <div id="availabilityGrid" class="availability-grid"></div>
+        <button type="button" id="saveAvailabilityBtn">Save Availability</button>
+        <p id="availabilityStatus" class="status-message" role="status"></p>
+      </section>
+    </main>
+
+    <script type="module" src="../js/sitterProfile/mySitterProfilePage.js"></script>
+  </body>
+</html>
