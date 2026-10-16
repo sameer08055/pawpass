@@ -4,6 +4,9 @@ import express from "express";
 import { getDb } from "./db/connection.js";
 import sitterProfilesRouter from "./routes/sitterProfiles.js";
 import bookingsRouter from "./routes/bookings.js";
+import petsRouter from "./routes/pets.js";
+import healthRecordsRouter from "./routes/healthRecords.js";
+
 // NOTE: once merged with Sai's side, add his routers here too, e.g.:
 // import petsRouter from "./routes/pets.js";
 // import healthRecordsRouter from "./routes/healthRecords.js";
@@ -17,6 +20,9 @@ app.use(express.static("public"));
 
 app.use("/api/sitter-profiles", sitterProfilesRouter);
 app.use("/api/bookings", bookingsRouter);
+app.use("/api/pets", petsRouter);
+app.use("/api/health-records", healthRecordsRouter);
+      
 // app.use("/api/pets", petsRouter);
 // app.use("/api/health-records", healthRecordsRouter);
 // app.use("/api/share", shareRouter);

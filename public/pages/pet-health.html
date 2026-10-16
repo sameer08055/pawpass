@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pet Health - PawPass</title>
+    <meta name="author" content="Sai Venkatesh Varun Muruganandam Murali Krishnan" />
+    <meta
+      name="description"
+      content="Track your pets' health records and upcoming appointments on PawPass."
+    />
+    <link rel="stylesheet" href="../css/sitter-profile.css" />
+    <link rel="stylesheet" href="../css/pet-health.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a href="../index.html" class="site-nav__brand">PawPass</a>
+      <ul class="site-nav__links">
+        <li><a href="my-pets.html">My Pets</a></li>
+        <li><a href="pet-health.html">Pet Health</a></li>
+      </ul>
+    </nav>
+
+    <main class="container">
+      <h1>Pet Health</h1>
+
+      <section>
+        <h2>Upcoming Appointments</h2>
+        <ul id="upcomingList" class="records-list"></ul>
+      </section>
+
+      <section>
+        <h2 id="recordFormHeading">Add a Record</h2>
+        <form id="recordForm">
+          <label for="recordPet">Pet</label>
+          <select id="recordPet" name="petId" required></select>
+
+          <div class="field-row">
+            <div>
+              <label for="recordType">Type</label>
+              <select id="recordType" name="type" required>
+                <option value="vet visit">Vet visit</option>
+                <option value="vaccine">Vaccine</option>
+                <option value="medication">Medication</option>
+                <option value="appointment">Appointment</option>
+                <option value="weight">Weight</option>
+              </select>
+            </div>
+            <div>
+              <label for="recordDate">Date</label>
+              <input type="date" id="recordDate" name="date" required />
+            </div>
+          </div>
+
+          <label for="recordTitle">Title</label>
+          <input
+            type="text"
+            id="recordTitle"
+            name="title"
+            placeholder="e.g. Rabies booster"
+            required
+          />
+
+          <label for="recordNotes">Notes</label>
+          <textarea id="recordNotes" name="notes" rows="2"></textarea>
+
+          <div id="completedRow" class="check-row" hidden>
+            <input type="checkbox" id="recordCompleted" name="completed" />
+            <label for="recordCompleted">Appointment is done</label>
+          </div>
+
+          <button type="submit" id="recordFormSubmitBtn">Add Record</button>
+          <button type="button" id="cancelRecordEditBtn" class="secondary-btn" hidden>
+            Cancel
+          </button>
+        </form>
+        <p id="recordsStatus" class="status-message" role="status"></p>
+      </section>
+
+      <section>
+        <h2>Health Records</h2>
+        <form id="searchForm" role="search">
+          <label for="searchText">Search</label>
+          <input type="search" id="searchText" placeholder="Title or notes" />
+
+          <div class="field-row">
+            <div>
+              <label for="filterPet">Pet</label>
+              <select id="filterPet"></select>
+            </div>
+            <div>
+              <label for="filterType">Type</label>
+              <select id="filterType">
+                <option value="">All types</option>
+                <option value="vet visit">Vet visit</option>
+                <option value="vaccine">Vaccine</option>
+                <option value="medication">Medication</option>
+                <option value="appointment">Appointment</option>
+                <option value="weight">Weight</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit">Search</button>
+        </form>
+
+        <ul id="recordsList" class="records-list"></ul>
+        <div id="pager" class="pager"></div>
+      </section>
+    </main>
+
+    <script type="module" src="../js/health/petHealthPage.js"></script>
+  </body>
+</html>
