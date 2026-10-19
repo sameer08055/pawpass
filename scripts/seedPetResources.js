@@ -1,10 +1,12 @@
 // One-time seed script: pulls real veterinary clinics, pet stores, and dog
 // parks from OpenStreetMap's Overpass API (free, no API key, no package —
 // just a fetch() call) and stores them in the `petResources` collection.
-
+//
 // This is read-only reference data, shown as extra map pins alongside a
 // sitter's own location. It also covers the "1,000+ records" rubric line
 // with genuine, real-world data rather than fabricated entries.
+//
+// Run once with: node --env-file=.env scripts/seedPetResources.js
 
 import { getDb, closeDb } from "../db/connection.js";
 
@@ -12,7 +14,6 @@ import { getDb, closeDb } from "../db/connection.js";
 // code), rather than a hand-drawn bounding box — this comfortably returns
 // well over 1,000 combined records. Swap "US-CA" for another state's code
 // if a different region is preferred.
-
 const OVERPASS_QUERY = `
 [out:json][timeout:180];
 area["ISO3166-2"="US-CA"]->.searchArea;
@@ -38,7 +39,6 @@ function classify(tags) {
 
 function toDocument(element) {
   const tags = element.tags || {};
-  // ways return a "center" object for their coordinates; nodes have lat/lon directly
   const lat = element.lat ?? element.center?.lat;
   const lon = element.lon ?? element.center?.lon;
   if (lat === undefined || lon === undefined) return null;
@@ -65,7 +65,14 @@ async function fetchOverpassData() {
 
   const res = await fetch(OVERPASS_URL, {
     method: "POST",
-    headers: { "Content-Type": "text/plain" },
+    headers: {
+      "Content-Type": "text/plain",
+      Accept: "application/json",
+      // Overpass's servers reject requests without a descriptive User-Agent
+      // as a basic anti-bot measure — same requirement as Nominatim.
+      "User-Agent":
+        "PawPass-ClassProject/1.0 (Northeastern University Web Dev course project)",
+    },
     body: OVERPASS_QUERY,
   });
 
@@ -93,7 +100,6 @@ async function seed() {
   const db = await getDb();
   const collection = db.collection("petResources");
 
-  // clear out any previous run of this seed script before re-inserting
   await collection.deleteMany({ source: "OpenStreetMap" });
 
   for (let i = 0; i < documents.length; i += BATCH_SIZE) {

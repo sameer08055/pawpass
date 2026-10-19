@@ -7,10 +7,12 @@ import {
   updateSitterProfile,
   deleteSitterProfile,
   addService,
+  updateService,
   removeService,
   setAvailableDays,
 } from "../db/sitterProfiles.js";
 import { validateSitterProfile } from "../validation/sitterProfile.js";
+import { geocodePincode } from "../utils/geocodePincode.js";
 
 const router = Router();
 
@@ -42,12 +44,22 @@ router.get("/:id", async (req, res) => {
 });
 
 // POST /api/sitter-profiles — create a new sitter profile
+// If a pincode is given, we geocode it server-side into lat/lon so the
+// sitter never has to type raw coordinates themselves.
 router.post("/", async (req, res) => {
   const { valid, errors } = validateSitterProfile(req.body);
   if (!valid) return res.status(400).json({ errors });
 
   try {
-    const created = await createSitterProfile(req.body);
+    const body = { ...req.body };
+    if (body.pincode) {
+      const coords = await geocodePincode(body.pincode);
+      if (coords) {
+        body.lat = coords.lat;
+        body.lon = coords.lon;
+      }
+    }
+    const created = await createSitterProfile(body);
     res.status(201).json(created);
   } catch (err) {
     res.status(500).json({ error: "Failed to create sitter profile." });
@@ -60,7 +72,15 @@ router.put("/:id", async (req, res) => {
   if (!valid) return res.status(400).json({ errors });
 
   try {
-    const updated = await updateSitterProfile(req.params.id, req.body);
+    const body = { ...req.body };
+    if (body.pincode) {
+      const coords = await geocodePincode(body.pincode);
+      if (coords) {
+        body.lat = coords.lat;
+        body.lon = coords.lon;
+      }
+    }
+    const updated = await updateSitterProfile(req.params.id, body);
     if (!updated) return res.status(404).json({ error: "Sitter profile not found." });
     res.json(updated);
   } catch (err) {
@@ -81,7 +101,7 @@ router.delete("/:id", async (req, res) => {
 
 // POST /api/sitter-profiles/:id/services — add a service
 router.post("/:id/services", async (req, res) => {
-  const { species, rate, notes } = req.body;
+  const { species, rate, notes, location } = req.body;
   if (!species || typeof rate !== "number") {
     return res
       .status(400)
@@ -91,12 +111,36 @@ router.post("/:id/services", async (req, res) => {
     const updated = await addService(req.params.id, {
       species,
       rate,
+      location: location || "Either",
       notes: notes || "",
     });
     if (!updated) return res.status(404).json({ error: "Sitter profile not found." });
     res.json(updated);
   } catch (err) {
     res.status(500).json({ error: "Failed to add service." });
+  }
+});
+
+// PUT /api/sitter-profiles/:id/services/:species — edit an existing service
+router.put("/:id/services/:species", async (req, res) => {
+  const { species, rate, notes, location } = req.body;
+  if (!species || typeof rate !== "number") {
+    return res
+      .status(400)
+      .json({ error: "species (string) and rate (number) are required." });
+  }
+  try {
+    const updated = await updateService(req.params.id, req.params.species, {
+      species,
+      rate,
+      location: location || "Either",
+      notes: notes || "",
+    });
+    if (!updated)
+      return res.status(404).json({ error: "Sitter profile or service not found." });
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update service." });
   }
 });
 

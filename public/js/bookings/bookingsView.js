@@ -1,5 +1,3 @@
-// public/js/bookings/bookingsView.js
-
 const STATUS_OPTIONS = ["requested", "confirmed", "completed", "cancelled"];
 
 function escapeHTML(str) {
@@ -56,6 +54,58 @@ export function renderBookings(bookings) {
         <button type="button" class="edit-booking-btn" data-id="${b._id}">Edit</button>
         <button type="button" class="delete-booking-btn" data-id="${b._id}">Delete</button>
       </div>
+    `;
+    list.appendChild(li);
+  });
+}
+
+export function renderDashboard(bookings) {
+  const total = bookings.length;
+  const upcoming = bookings.filter(
+    (b) => b.status === "requested" || b.status === "confirmed",
+  );
+  const uniqueCustomers = new Set(bookings.map((b) => b.ownerContact || b.petName));
+
+  document.getElementById("statTotal").textContent = total;
+  document.getElementById("statUpcoming").textContent = upcoming.length;
+  document.getElementById("statCustomers").textContent = uniqueCustomers.size;
+
+  const sorted = [...upcoming].sort(
+    (a, b) => new Date(a.dateRange?.start) - new Date(b.dateRange?.start),
+  );
+  const next = sorted[0];
+  const nextEl = document.getElementById("nextSit");
+  if (!next) {
+    nextEl.textContent = "No upcoming sits scheduled.";
+  } else {
+    nextEl.textContent = `${escapeHTML(next.petName)} — ${formatDate(next.dateRange?.start)} to ${formatDate(next.dateRange?.end)}`;
+  }
+}
+
+export function renderCustomers(bookings) {
+  const list = document.getElementById("customersList");
+  list.innerHTML = "";
+
+  // group by owner contact (falling back to pet name if contact wasn't given)
+  const groups = new Map();
+  bookings.forEach((b) => {
+    const key = b.ownerContact || `(no contact) — ${b.petName}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(b.petName);
+  });
+
+  if (groups.size === 0) {
+    list.innerHTML =
+      '<li class="empty-note">No customers yet — log a sit to see them here.</li>';
+    return;
+  }
+
+  groups.forEach((pets, contact) => {
+    const li = document.createElement("li");
+    const uniquePets = [...new Set(pets)];
+    li.innerHTML = `
+      <div class="customer-name">${escapeHTML(contact)}</div>
+      <div class="customer-detail">Pets: ${uniquePets.map(escapeHTML).join(", ")} &middot; ${pets.length} sit${pets.length === 1 ? "" : "s"}</div>
     `;
     list.appendChild(li);
   });

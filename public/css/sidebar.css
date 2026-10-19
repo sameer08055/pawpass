@@ -1,0 +1,134 @@
+.hidden {
+  display: none;
+}
+
+.page-layout {
+  display: flex;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  align-items: flex-start;
+}
+
+/* ===== Floating sidebar ===== */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.07);
+  padding: 16px 10px;
+  position: sticky;
+  top: 24px;
+}
+
+.sidebar__nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar__item {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.sidebar__item:hover {
+  background-color: var(--color-bg);
+}
+
+.sidebar__item.active {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.sidebar__divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 12px 6px;
+}
+
+/* ===== Main content / panels ===== */
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.panel h1 {
+  margin-top: 0;
+}
+
+/* ===== Dashboard ===== */
+.empty-state {
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.cta-btn {
+  margin-top: 14px;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.summary-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.summary-location {
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  margin-top: -8px;
+}
+
+.summary-bio {
+  margin: 12px 0 20px;
+}
+
+.summary-services {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.summary-services li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.88rem;
+}
+
+.summary-availability {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+}

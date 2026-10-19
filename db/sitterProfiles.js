@@ -1,11 +1,15 @@
-// { _id, sitterId, name, bio, location, lat, lon,
-//   services: [{ species, rate, notes }],
+// { _id, sitterId, name, bio, location, pincode, lat, lon,
+//   services: [{ species, rate, location, notes }],
 //   availableDays: [ "2026-11-03", "2026-11-04", ... ],  // ISO date strings
 //   createdAt }
 
+// lat/lon are derived server-side from pincode via geocoding (see routes/sitterProfiles.js) —
+// the sitter only ever types in a pincode, never raw coordinates.
+
 import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
-const COLLECTION = "sitterprofiles";
+
+const COLLECTION = "sitterProfiles";
 
 async function collection() {
   const db = await getDb();
@@ -34,6 +38,7 @@ export async function createSitterProfile(profile) {
     name: profile.name,
     bio: profile.bio || "",
     location: profile.location || "",
+    pincode: profile.pincode || "",
     lat: profile.lat ?? null,
     lon: profile.lon ?? null,
     services: profile.services || [],
@@ -60,13 +65,22 @@ export async function deleteSitterProfile(id) {
   return result.deletedCount > 0;
 }
 
-// service helpers (add/remove one entry from the services array)
+// --- service helpers (add/edit/remove one entry from the services array) ---
 
 export async function addService(id, service) {
   const col = await collection();
   return col.findOneAndUpdate(
     { _id: new ObjectId(id) },
     { $push: { services: service } },
+    { returnDocument: "after" },
+  );
+}
+
+export async function updateService(id, oldSpecies, newService) {
+  const col = await collection();
+  return col.findOneAndUpdate(
+    { _id: new ObjectId(id), "services.species": oldSpecies },
+    { $set: { "services.$": newService } },
     { returnDocument: "after" },
   );
 }
@@ -80,7 +94,7 @@ export async function removeService(id, species) {
   );
 }
 
-// availability helpers
+// --- availability helpers ---
 
 export async function setAvailableDays(id, availableDays) {
   const col = await collection();

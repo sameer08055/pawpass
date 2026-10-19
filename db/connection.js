@@ -22,7 +22,7 @@ export async function getDb() {
   return dbInstance;
 }
 
-export async function closeDB() {
+export async function closeDb() {
   await client.close();
   dbInstance = null;
 }

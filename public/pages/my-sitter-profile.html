@@ -10,6 +10,7 @@
       content="Manage your PawPass sitter profile, services, and availability."
     />
     <link rel="stylesheet" href="../css/sitter-profile.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
   </head>
   <body>
     <nav class="site-nav">
@@ -20,80 +21,189 @@
       </ul>
     </nav>
 
-    <main class="container">
-      <h1>My Sitter Profile</h1>
+    <div class="page-layout">
+      <!-- ===== Floating sidebar ===== -->
+      <aside class="sidebar">
+        <ul class="sidebar__nav">
+          <li>
+            <button type="button" class="sidebar__item active" data-panel="dashboard">
+              Dashboard
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="calendar">
+              Calendar
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="profile">
+              My Sitter Profile
+            </button>
+          </li>
+        </ul>
+      </aside>
 
-      <!-- ===== Profile details ===== -->
-      <section>
-        <h2>Profile Details</h2>
-        <form id="profileForm">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required />
-
-          <label for="bio">Bio</label>
-          <textarea id="bio" name="bio" rows="3"></textarea>
-
-          <label for="location">Location / neighborhood</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            placeholder="e.g. Mission District, SF"
-          />
-
-          <div class="field-row">
-            <div>
-              <label for="lat">Latitude</label>
-              <input type="number" id="lat" name="lat" step="any" />
-            </div>
-            <div>
-              <label for="lon">Longitude</label>
-              <input type="number" id="lon" name="lon" step="any" />
+      <!-- ===== Main content ===== -->
+      <main class="main-content">
+        <!-- Dashboard panel -->
+        <section class="panel active" id="panel-dashboard">
+          <h1>Dashboard</h1>
+          <div id="dashboardNoProfile" class="empty-state hidden">
+            <p>You haven't created a sitter profile yet.</p>
+            <button type="button" class="cta-btn" data-goto="profile">
+              Create Profile
+            </button>
+          </div>
+          <div id="dashboardSummary" class="hidden">
+            <div class="summary-card">
+              <h2 id="summaryName"></h2>
+              <p id="summaryLocation" class="summary-location"></p>
+              <p id="summaryBio" class="summary-bio"></p>
+              <h3>Services &amp; Areas I Cover</h3>
+              <ul id="summaryServices" class="summary-services"></ul>
+              <h3>Availability</h3>
+              <p id="summaryAvailability" class="summary-availability"></p>
             </div>
           </div>
+        </section>
 
-          <button type="submit">Save Profile</button>
-          <p id="profileStatus" class="status-message" role="status"></p>
-        </form>
-      </section>
+        <!-- Calendar panel -->
+        <section class="panel" id="panel-calendar">
+          <h1>Availability Calendar</h1>
+          <div class="card">
+            <div class="calendar-nav">
+              <button type="button" id="prevMonthBtn" aria-label="Previous month">
+                &larr;
+              </button>
+              <span id="calendarMonthLabel" class="calendar-month-label"></span>
+              <button type="button" id="nextMonthBtn" aria-label="Next month">
+                &rarr;
+              </button>
+            </div>
+            <p class="hint">
+              Click a day to mark it available. Each day defaults to all-day, or you can
+              set a specific time range.
+            </p>
+            <div id="availabilityGrid" class="availability-grid"></div>
 
-      <!-- ===== Services ===== -->
-      <section id="servicesSection" class="disabled">
-        <h2>Services I Offer</h2>
-        <ul id="servicesList"></ul>
+            <div id="dayEditor" class="day-editor hidden">
+              <p id="dayEditorLabel" class="day-editor-label"></p>
 
-        <form id="addServiceForm">
-          <label for="newServiceSpecies">Species</label>
-          <select id="newServiceSpecies" required>
-            <option value="Dogs">Dogs</option>
-            <option value="Cats">Cats</option>
-            <option value="Rabbits">Rabbits</option>
-          </select>
+              <div class="day-editor-row">
+                <label
+                  ><input
+                    type="radio"
+                    name="dayMode"
+                    id="dayModeAllDay"
+                    value="allDay"
+                    checked
+                  />
+                  All day</label
+                >
+                <label
+                  ><input type="radio" name="dayMode" id="dayModeCustom" value="custom" />
+                  Custom time range</label
+                >
+              </div>
 
-          <label for="newServiceRate">Rate ($/day)</label>
-          <input type="number" id="newServiceRate" min="0" required />
+              <div id="dayTimeInputs" class="field-row hidden">
+                <div>
+                  <label for="dayStartTime">Start time</label>
+                  <input type="time" id="dayStartTime" value="09:00" />
+                </div>
+                <div>
+                  <label for="dayEndTime">End time</label>
+                  <input type="time" id="dayEndTime" value="17:00" />
+                </div>
+              </div>
 
-          <label for="newServiceNotes">What should owners prepare?</label>
-          <textarea
-            id="newServiceNotes"
-            rows="2"
-            placeholder="e.g. Bring their bed and food"
-          ></textarea>
+              <button type="button" id="applyDayBtn">Apply</button>
+              <button type="button" id="removeDayBtn" class="secondary-btn">
+                Remove this day
+              </button>
+            </div>
 
-          <button type="submit">Add Service</button>
-        </form>
-        <p id="servicesStatus" class="status-message" role="status"></p>
-      </section>
+            <button type="button" id="saveAvailabilityBtn">Save Availability</button>
+            <p id="availabilityStatus" class="status-message" role="status"></p>
+          </div>
+        </section>
 
-      <!-- ===== Availability ===== -->
-      <section id="availabilitySection" class="disabled">
-        <h2>Availability This Month</h2>
-        <p class="hint">Click a day to mark yourself available or unavailable.</p>
-        <div id="availabilityGrid" class="availability-grid"></div>
-        <button type="button" id="saveAvailabilityBtn">Save Availability</button>
-        <p id="availabilityStatus" class="status-message" role="status"></p>
-      </section>
-    </main>
+        <!-- Profile panel -->
+        <section class="panel" id="panel-profile">
+          <h1>My Sitter Profile</h1>
+
+          <div id="profileFormCard" class="card">
+            <h2>Profile Details</h2>
+            <form id="profileForm">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+
+              <label for="bio">Bio</label>
+              <textarea id="bio" name="bio" rows="3"></textarea>
+
+              <label for="location">Location / neighborhood</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                placeholder="e.g. Mission District, SF"
+              />
+
+              <label for="pincode">Pincode / ZIP code</label>
+              <input type="text" id="pincode" name="pincode" placeholder="e.g. 94110" />
+
+              <button type="submit">Save Profile</button>
+              <p id="profileStatus" class="status-message" role="status"></p>
+            </form>
+          </div>
+
+          <div id="servicesSection" class="card disabled">
+            <h2>Services I Offer</h2>
+            <p class="hint">
+              Add one entry per animal type you care for — each can have its own rate,
+              care notes, and where the sit happens.
+            </p>
+            <ul id="servicesList"></ul>
+
+            <form id="addServiceForm">
+              <label for="newServiceSpecies">Species</label>
+              <select id="newServiceSpecies" required>
+                <option value="Dogs">Dogs</option>
+                <option value="Cats">Cats</option>
+                <option value="Rabbits">Rabbits</option>
+              </select>
+
+              <label for="newServiceRate">Rate ($/day)</label>
+              <input type="number" id="newServiceRate" min="0" required />
+
+              <label for="newServiceLocation">Where does the sit happen?</label>
+              <select id="newServiceLocation">
+                <option value="Owner's home">At the owner's home</option>
+                <option value="My home">At my home</option>
+                <option value="Either">Either works</option>
+              </select>
+
+              <label for="newServiceNotes">What should owners prepare?</label>
+              <textarea
+                id="newServiceNotes"
+                rows="2"
+                placeholder="e.g. Bring their bed and food"
+              ></textarea>
+
+              <button type="submit" id="serviceFormSubmitBtn">Add Service</button>
+              <button
+                type="button"
+                id="cancelServiceEditBtn"
+                class="secondary-btn hidden"
+              >
+                Cancel
+              </button>
+            </form>
+            <p id="servicesStatus" class="status-message" role="status"></p>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="../js/sitterProfile/mySitterProfilePage.js"></script>
   </body>

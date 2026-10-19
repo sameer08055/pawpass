@@ -13,6 +13,9 @@ export function validateSitterProfile(data) {
   if (data.location !== undefined && typeof data.location !== "string") {
     errors.push("location must be a string.");
   }
+  if (data.pincode !== undefined && typeof data.pincode !== "string") {
+    errors.push("pincode must be a string.");
+  }
   if (data.lat !== undefined && data.lat !== null && typeof data.lat !== "number") {
     errors.push("lat must be a number.");
   }
@@ -33,11 +36,38 @@ export function validateSitterProfile(data) {
         if (s.notes !== undefined && typeof s.notes !== "string") {
           errors.push(`services[${i}].notes must be a string.`);
         }
+        if (s.location !== undefined && typeof s.location !== "string") {
+          errors.push(`services[${i}].location must be a string.`);
+        }
       });
     }
   }
-  if (data.availableDays !== undefined && !Array.isArray(data.availableDays)) {
-    errors.push("availableDays must be an array of date strings.");
+
+  // availableDays: [{ date: "2026-10-19", allDay: true }]
+  // or              [{ date: "2026-10-19", allDay: false, startTime: "09:00", endTime: "17:00" }]
+  if (data.availableDays !== undefined) {
+    if (!Array.isArray(data.availableDays)) {
+      errors.push("availableDays must be an array.");
+    } else {
+      data.availableDays.forEach((d, i) => {
+        if (!d.date || typeof d.date !== "string") {
+          errors.push(`availableDays[${i}].date is required and must be a string.`);
+        }
+        if (typeof d.allDay !== "boolean") {
+          errors.push(`availableDays[${i}].allDay is required and must be a boolean.`);
+        }
+        if (d.allDay === false) {
+          if (!d.startTime || typeof d.startTime !== "string") {
+            errors.push(
+              `availableDays[${i}].startTime is required when allDay is false.`,
+            );
+          }
+          if (!d.endTime || typeof d.endTime !== "string") {
+            errors.push(`availableDays[${i}].endTime is required when allDay is false.`);
+          }
+        }
+      });
+    }
   }
 
   return { valid: errors.length === 0, errors };

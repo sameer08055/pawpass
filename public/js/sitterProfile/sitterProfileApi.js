@@ -1,3 +1,5 @@
+const BASE = "/api/sitter-profiles";
+
 async function handleResponse(res) {
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
@@ -36,6 +38,15 @@ export async function updateProfile(id, data) {
 export async function addService(id, service) {
   const res = await fetch(`${BASE}/${id}/services`, {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(service),
+  });
+  return handleResponse(res);
+}
+
+export async function updateService(id, oldSpecies, service) {
+  const res = await fetch(`${BASE}/${id}/services/${encodeURIComponent(oldSpecies)}`, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(service),
   });

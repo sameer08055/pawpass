@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PawPass</title>
+    <title>PawPass — Pet Care, Handed Off Right</title>
     <meta
       name="author"
       content="Sree Rachnae Shyam, Sai Venkatesh Varun Muruganandam Murali Krishnan"
@@ -13,29 +13,92 @@
       content="PawPass — track your pet's health and hand off care to a trusted sitter."
     />
     <link rel="stylesheet" href="css/sitter-profile.css" />
+    <link rel="stylesheet" href="css/home.css" />
   </head>
   <body>
     <nav class="site-nav">
       <a href="index.html" class="site-nav__brand">PawPass</a>
       <ul class="site-nav__links">
         <li><a href="pages/my-pets.html">My Pets</a></li>
+        <li><a href="pages/pet-health.html">Pet Health</a></li>
         <li><a href="pages/my-sitter-profile.html">My Sitter Profile</a></li>
         <li><a href="pages/my-sits.html">My Sits</a></li>
       </ul>
     </nav>
 
-    <main class="container">
-      <h1>PawPass</h1>
-      <p>
-        PawPass helps pet owners track their pet's health and hand off care info to a
-        sitter, and helps sitters manage their profile, availability, and booked sits.
-      </p>
-      <p>
-        <a href="pages/my-pets.html">I'm a pet owner &rarr;</a>
-      </p>
-      <p>
-        <a href="pages/my-sitter-profile.html">I'm a sitter &rarr;</a>
-      </p>
+    <main>
+      <!-- ===== Hero ===== -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Pet care, handed off right.</h1>
+          <p class="hero-subtitle">
+            Track your pet's health, share the details that matter, and connect with a
+            sitter you trust — all in one place.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== Persona picker ===== -->
+      <section class="persona-section">
+        <div class="persona-grid">
+          <article class="persona-card">
+            <h2>I'm a Pet Owner</h2>
+            <p>
+              Keep every pet's health history, vet info, and care notes in one place —
+              then generate a read-only Quick Facts link to hand off to whoever's
+              watching them.
+            </p>
+            <ul class="persona-features">
+              <li>Log vet visits, vaccines, and medications</li>
+              <li>Track upcoming appointments</li>
+              <li>Share a Quick Facts link for temporary care</li>
+            </ul>
+            <a href="pages/my-pets.html" class="persona-cta">Go to My Pets &rarr;</a>
+          </article>
+
+          <article class="persona-card">
+            <h2>I'm a Sitter</h2>
+            <p>
+              Set up your profile, list the services you offer, mark your
+              availability, and keep track of every sit you've booked.
+            </p>
+            <ul class="persona-features">
+              <li>List services by species, rate, and location</li>
+              <li>Set day-by-day or custom-hour availability</li>
+              <li>Track upcoming and past sits</li>
+            </ul>
+            <a href="pages/my-sitter-profile.html" class="persona-cta">Go to My Sitter Profile &rarr;</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== How it works ===== -->
+      <section class="how-it-works">
+        <h2>How it works</h2>
+        <div class="steps-grid">
+          <div class="step">
+            <span class="step-number">1</span>
+            <h3>Build a profile</h3>
+            <p>Owners log their pets' health details. Sitters list their services and availability.</p>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <h3>Hand off the details</h3>
+            <p>Owners share a Quick Facts link so a sitter has everything they need, instantly.</p>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <h3>Track every sit</h3>
+            <p>Sitters log bookings and follow each one from requested to completed.</p>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>PawPass &mdash; built for Web Development, Fall 2026.</p>
+      </div>
+    </footer>
   </body>
 </html>

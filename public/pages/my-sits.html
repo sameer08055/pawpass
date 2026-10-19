@@ -7,6 +7,7 @@
     <meta name="author" content="Sree Rachnae Shyam" />
     <meta name="description" content="Manage your booked pet-sitting jobs on PawPass." />
     <link rel="stylesheet" href="../css/sitter-profile.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
     <link rel="stylesheet" href="../css/sits.css" />
   </head>
   <body>
@@ -18,58 +19,133 @@
       </ul>
     </nav>
 
-    <main class="container">
-      <h1>My Sits</h1>
+    <div class="page-layout">
+      <!-- ===== Floating sidebar ===== -->
+      <aside class="sidebar">
+        <ul class="sidebar__nav">
+          <li>
+            <button type="button" class="sidebar__item active" data-panel="dashboard">
+              Dashboard
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="calendar">
+              Calendar
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="customers">
+              Customers
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="map">Map</button>
+          </li>
+        </ul>
+      </aside>
 
-      <section>
-        <h2 id="bookingFormHeading">Log a New Sit</h2>
-        <form id="bookingForm">
-          <label for="petName">Pet name</label>
-          <input type="text" id="petName" name="petName" required />
-
-          <label for="ownerContact">Owner contact</label>
-          <input
-            type="text"
-            id="ownerContact"
-            name="ownerContact"
-            placeholder="email or phone"
-          />
-
-          <label for="quickFactsLink">Quick Facts link</label>
-          <input
-            type="url"
-            id="quickFactsLink"
-            name="quickFactsLink"
-            placeholder="https://..."
-          />
-
-          <div class="field-row">
-            <div>
-              <label for="startDate">Start date</label>
-              <input type="date" id="startDate" name="startDate" required />
+      <!-- ===== Main content ===== -->
+      <main class="main-content">
+        <!-- Dashboard panel -->
+        <section class="panel active" id="panel-dashboard">
+          <h1>Dashboard</h1>
+          <div class="card">
+            <div class="sits-stats">
+              <div class="stat-box">
+                <p class="stat-number" id="statTotal">0</p>
+                <p class="stat-label">Total sits</p>
+              </div>
+              <div class="stat-box">
+                <p class="stat-number" id="statUpcoming">0</p>
+                <p class="stat-label">Upcoming / confirmed</p>
+              </div>
+              <div class="stat-box">
+                <p class="stat-number" id="statCustomers">0</p>
+                <p class="stat-label">Customers</p>
+              </div>
             </div>
-            <div>
-              <label for="endDate">End date</label>
-              <input type="date" id="endDate" name="endDate" required />
-            </div>
+            <h3>Next Sit</h3>
+            <p id="nextSit" class="hint">No upcoming sits scheduled.</p>
+          </div>
+        </section>
+
+        <!-- Calendar panel (log + manage sits) -->
+        <section class="panel" id="panel-calendar">
+          <h1>My Sits</h1>
+
+          <div class="card">
+            <h2 id="bookingFormHeading">Log a New Sit</h2>
+            <form id="bookingForm">
+              <label for="petName">Pet name</label>
+              <input type="text" id="petName" name="petName" required />
+
+              <label for="ownerContact">Owner contact</label>
+              <input
+                type="text"
+                id="ownerContact"
+                name="ownerContact"
+                placeholder="email or phone"
+              />
+
+              <label for="quickFactsLink">Quick Facts link</label>
+              <input
+                type="url"
+                id="quickFactsLink"
+                name="quickFactsLink"
+                placeholder="https://..."
+              />
+
+              <div class="field-row">
+                <div>
+                  <label for="startDate">Start date</label>
+                  <input type="date" id="startDate" name="startDate" required />
+                </div>
+                <div>
+                  <label for="endDate">End date</label>
+                  <input type="date" id="endDate" name="endDate" required />
+                </div>
+              </div>
+
+              <label for="notes">Notes</label>
+              <textarea id="notes" name="notes" rows="2"></textarea>
+
+              <button type="submit" id="bookingFormSubmitBtn">Log Sit</button>
+              <button type="button" id="cancelEditBtn" class="secondary-btn hidden">
+                Cancel
+              </button>
+            </form>
+            <p id="bookingsStatus" class="status-message" role="status"></p>
           </div>
 
-          <label for="notes">Notes</label>
-          <textarea id="notes" name="notes" rows="2"></textarea>
+          <div class="card">
+            <h2>All Sits</h2>
+            <ul id="bookingsList" class="bookings-list"></ul>
+          </div>
+        </section>
 
-          <button type="submit" id="bookingFormSubmitBtn">Log Sit</button>
-          <button type="button" id="cancelEditBtn" class="secondary-btn hidden">
-            Cancel
-          </button>
-        </form>
-        <p id="bookingsStatus" class="status-message" role="status"></p>
-      </section>
+        <!-- Customers panel -->
+        <section class="panel" id="panel-customers">
+          <h1>Customers</h1>
+          <div class="card">
+            <p class="hint">Owners and pets you've sat for, based on your logged sits.</p>
+            <ul id="customersList" class="customers-list"></ul>
+          </div>
+        </section>
 
-      <section>
-        <h2>My Sits</h2>
-        <ul id="bookingsList" class="bookings-list"></ul>
-      </section>
-    </main>
+        <!-- Map panel -->
+        <section class="panel" id="panel-map">
+          <h1>My Service Area</h1>
+          <div class="card">
+            <p id="mapHint" class="hint">
+              Set your pincode on your sitter profile to show your area here.
+            </p>
+            <div class="map-wrap" id="mapWrap" style="display: none">
+              <iframe id="mapFrame" loading="lazy"></iframe>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="../js/bookings/mySitsPage.js"></script>
   </body>
