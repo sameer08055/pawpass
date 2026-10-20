@@ -22,8 +22,30 @@ function fixDateRange(startStr, endStr) {
   return { start, end };
 }
 
+// Mockaroo's "Sentences" field type generates generic Latin filler text by
+// default — these are realistic sitting notes used in its place instead.
+const REALISTIC_NOTES = [
+  "Needs a walk twice a day, morning and evening.",
+  "Please leave treats on the counter for them.",
+  "A bit shy with new people at first — give them space.",
+  "Loves belly rubs once they warm up to you.",
+  "Feeding instructions are on the fridge.",
+  "Please lock the back gate when going outside.",
+  "They're on a special diet, no table scraps please.",
+  "Very food-motivated, great for training reminders.",
+  "",
+  "",
+  "",
+];
+
+function pickRealisticNotes() {
+  return REALISTIC_NOTES[Math.floor(Math.random() * REALISTIC_NOTES.length)];
+}
+
 function computeStatus(start, end, today) {
   if (end < today) {
+    // a handful of past sits get marked cancelled instead of completed,
+    // just so the status column isn't 100% one value for every past row
     return Math.random() < 0.15 ? "cancelled" : "completed";
   }
 
@@ -53,14 +75,12 @@ async function seed() {
         end: end.toISOString().slice(0, 10),
       },
       status,
-      notes: row.notes || "",
+      notes: pickRealisticNotes(),
       createdAt: new Date(),
     };
   });
 
-  console.log(
-    `Prepared ${documents.length} mock bookings for sitterId "${CURRENT_SITTER_ID}".`,
-  );
+  console.log(`Prepared ${documents.length} mock bookings for sitterId "${CURRENT_SITTER_ID}".`);
 
   const db = await getDb();
   const collection = db.collection("bookings");
