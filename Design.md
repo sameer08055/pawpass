@@ -100,7 +100,7 @@ Requirements for Acceptance:
 These are screenshots of the finished pages.
 
 ### Home page
-![Initial Sketch of the home page](screenshots/Home.png)
+![Initial Sketch of the home page](screenshots/Home.jpeg)
 This is the home page. It has the navigation links, a short introduction, one section for pet owners and one for sitters, and three steps that explain how PawPass works.
 
 ### My Pets page
