@@ -306,11 +306,27 @@ system.
 ## Use of GenAI Tools
 
 We used Claude (Anthropic) for coding assistance, debugging, planning, and
-design guidance throughout this project. [Add any further specifics required
-by your course's disclosure policy-e.g., which parts were written
-independently vs. with assistance.]
+design guidance throughout this project.
+
+We also used ChatGPT for assistance with parts of the README.
+
+Model Used:
+ChatGPT, GPT-5.6 Luna, Claude
+
+Example Prompts used:
+"Help me create a README for my project" " Help me describe the gen ai usage of my website." "Help me check if my code satisifies the rubric of the project." "Help me create a basic file structure for my project." 
+
+What was not ai assisted: 
+Core architecture, schema boundary decoupling, interactive calendar DOM logic, CSS design system, and deployment configuration.
+
+The final website content and design were reviewed and customized by us.
 
 ---
+
+## Code Review
+
+This project includes the required files and is prepared for code review as part of the course submission.
+
 
 ## License
 
