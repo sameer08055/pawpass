@@ -101,20 +101,25 @@ These are screenshots of the finished pages.
 
 ### Home page
 ![Initial Sketch of the home page](screenshots/Home.jpeg)
+
 This is the home page. It has the navigation links, a short introduction, one section for pet owners and one for sitters, and three steps that explain how PawPass works.
 
 ### My Pets page
 ![Initial Sketch of the My Pets page](screenshots/MyPets.jpeg)
+
 This is the My Pets page. It has a sidebar with two options, My Pets and Add a Pet. My Pets lists each pet with Edit, Delete and Create link buttons, and Add a Pet shows the form. A Quick Facts link opens a read-only card for one pet.
 
 ### Pet Health page
 ![Initial Sketch of the Pet Health page](screenshots/PetHealth.jpeg)
+
 This is the Pet Health page. It has a sidebar with Upcoming, Records and Add a Record. Upcoming lists the next appointments with their urgency labels, Records has the search, the filters and the list, and Add a Record shows the form.
 
 ### My Sitter Profile page
 ![Initial Sketch of the My Sitter Profile page](screenshots/SitterProfile.jpeg)
+
 This is the My Sitter Profile page. It has a sidebar with Dashboard, Calendar and My Sitter Profile. The Dashboard summarizes the profile, services and availability, the Calendar is a month view for marking available days, and My Sitter Profile has the profile form and the service form.
 
 ### My Sits page
 ![Initial Sketch of the My Sits page](screenshots/MySits.jpeg)
+
 This is the My Sits page. It has a sidebar with Dashboard, Calendar, Customers and Map. The Dashboard shows the next sit, the Calendar is where sits are logged and managed, Customers lists the owners the sitter has worked with, and Map shows the sitter's service area.
