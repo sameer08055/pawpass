@@ -32,13 +32,34 @@ connection between them is a plain-text Quick Facts link that an owner
 shares and a sitter pastes into a booking — the same kind of link anyone
 could text or email.
 
-## Screenshot
+## Screenshots
 
-[Add a screenshot of the homepage or a key page here]
+**Homepage**
+![PawPass homepage](./screenshots/homepage.png)
+
+**My Pets**
+![My Pets page](./screenshots/my-pets.png)
+![My Pets page, additional view](./screenshots/my-pets-2.png)
+
+**Pet Health**
+![Pet Health page](./screenshots/pet-health.png)
+![Pet Health page, additional view](./screenshots/pet-health-2.png)
+![Pet Health page, additional view](./screenshots/pet-health-3.png)
+
+**My Sitter Profile**
+![My Sitter Profile page](./screenshots/my-sitter-profile.png)
+![My Sitter Profile page, additional view](./screenshots/my-sitter-profile-2.png)
+![My Sitter Profile page, additional view](./screenshots/my-sitter-profile-3.png)
+
+**My Sits**
+![My Sits page](./screenshots/my-sits.png)
+![My Sits page, additional view](./screenshots/my-sits-2.png)
+![My Sits page, additional view](./screenshots/my-sits-3.png)
+![My Sits page, additional view](./screenshots/my-sits-4.png)
 
 ## Live Demo
 
-[Add your Render deployment URL here once live]
+Render deployment URL - https://pawpass-g001.onrender.com/index.html
 
 ---
 
