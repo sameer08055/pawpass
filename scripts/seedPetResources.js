@@ -1,17 +1,7 @@
-// One-time seed script: pulls real veterinary clinics, pet stores, and dog
-// parks from OpenStreetMap's Overpass API (free, no API key, no package —
-// just a fetch() call) and stores them in the `petResources` collection.
-//
-// This is read-only reference data, shown as extra map pins alongside a
-// sitter's own location. It also covers the "1,000+ records" rubric line
-// with genuine, real-world data rather than fabricated entries.
-//
-// Run once with: node --env-file=.env scripts/seedPetResources.js
-
 import { getDb, closeDb } from "../db/connection.js";
 
 // Scoped to California via OSM's own administrative boundary (ISO 3166-2
-// code), rather than a hand-drawn bounding box — this comfortably returns
+// code), rather than a hand-drawn bounding box this comfortably returns
 // well over 1,000 combined records. Swap "US-CA" for another state's code
 // if a different region is preferred.
 const OVERPASS_QUERY = `

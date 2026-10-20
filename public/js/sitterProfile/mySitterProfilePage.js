@@ -1,5 +1,3 @@
-// public/js/sitterProfile/mySitterProfilePage.js
-
 import { CURRENT_SITTER_ID } from "../config.js";
 import {
   fetchMyProfile,

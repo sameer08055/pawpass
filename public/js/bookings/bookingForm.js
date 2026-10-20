@@ -1,5 +1,3 @@
-// public/js/bookings/bookingForm.js
-
 export function readBookingFormValues() {
   return {
     petName: document.getElementById("petName").value.trim(),

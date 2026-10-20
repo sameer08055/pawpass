@@ -1,12 +1,3 @@
-// { _id, sitterId, petName, ownerContact, quickFactsLink,
-//   dateRange: { start, end },     // ISO date strings
-//   status,                        // "requested" | "confirmed" | "completed" | "cancelled"
-//   notes, createdAt }
-
-// Note: petName, ownerContact, and quickFactsLink are plain fields filled in
-// by whoever creates the booking — this collection never reads from the
-// pets/healthRecords collections directly, keeping the two sides independent.
-
 import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
 

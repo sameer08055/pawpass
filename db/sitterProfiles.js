@@ -1,11 +1,3 @@
-// { _id, sitterId, name, bio, location, pincode, lat, lon,
-//   services: [{ species, rate, location, notes }],
-//   availableDays: [ "2026-11-03", "2026-11-04", ... ],  // ISO date strings
-//   createdAt }
-
-// lat/lon are derived server-side from pincode via geocoding (see routes/sitterProfiles.js) —
-// the sitter only ever types in a pincode, never raw coordinates.
-
 import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
 

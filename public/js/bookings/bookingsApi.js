@@ -1,5 +1,3 @@
-// public/js/bookings/bookingsApi.js
-
 const BASE = "/api/bookings";
 
 async function handleResponse(res) {

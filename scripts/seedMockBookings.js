@@ -1,20 +1,3 @@
-// scripts/seedMockBookings.js
-//
-// Imports demo booking data generated with Mockaroo (scripts/mockBookings.json)
-// into the bookings collection. Mockaroo generated startDate/endDate as two
-// independently random fields, so this script:
-//   1. Fixes any row where endDate ended up before startDate (swaps them),
-//      and nudges endDate forward a couple of days if they landed on the
-//      same date.
-//   2. Computes a realistic status based on where each date falls relative
-//      to today, rather than trusting a random status value — a sit that
-//      already happened should say "completed", not "requested".
-//
-// Run once with: node --env-file=.env scripts/seedMockBookings.js
-//
-// IMPORTANT: CURRENT_SITTER_ID below must match public/js/config.js exactly,
-// since that's how the frontend looks up "my" bookings.
-
 import { readFileSync } from "fs";
 import { getDb, closeDb } from "../db/connection.js";
 
@@ -41,8 +24,6 @@ function fixDateRange(startStr, endStr) {
 
 function computeStatus(start, end, today) {
   if (end < today) {
-    // a handful of past sits get marked cancelled instead of completed,
-    // just so the status column isn't 100% one value for every past row
     return Math.random() < 0.15 ? "cancelled" : "completed";
   }
 
