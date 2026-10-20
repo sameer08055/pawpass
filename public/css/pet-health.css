@@ -1,0 +1,137 @@
+.records-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.record-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--color-border);
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.record-card.urgency-border-overdue {
+  border-left-color: #b5581f;
+}
+.record-card.urgency-border-today {
+  border-left-color: #ba7517;
+}
+.record-card.urgency-border-soon {
+  border-left-color: #c9a400;
+}
+.record-card.urgency-border-upcoming {
+  border-left-color: var(--color-accent);
+}
+.record-card.urgency-border-later {
+  border-left-color: var(--color-muted);
+}
+
+.record-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.record-title {
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+
+.record-detail {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  margin: 2px 0;
+}
+
+.record-notes {
+  font-style: italic;
+}
+
+.record-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.edit-record-btn,
+.delete-record-btn,
+.done-record-btn,
+.pager-btn {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.delete-record-btn:hover {
+  background-color: #fbe9e3;
+  border-color: #ba7517;
+}
+
+.pager-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.urgency-overdue {
+  background-color: #fbe9e3;
+  color: #9a3f12;
+}
+.urgency-today {
+  background-color: #f6e3c4;
+  color: #7a4a0b;
+}
+.urgency-soon {
+  background-color: #f3ecc2;
+  color: #5e5410;
+}
+.urgency-upcoming {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.urgency-later {
+  background-color: #ece7d8;
+  color: var(--color-muted);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.check-row input {
+  width: auto;
+}
+
+.check-row label {
+  margin: 0;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}

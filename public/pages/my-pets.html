@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Pets - PawPass</title>
+    <meta name="author" content="Sai Venkatesh Varun Muruganandam Murali Krishnan" />
+    <meta
+      name="description"
+      content="Manage your pets and share a read-only Quick Facts link on PawPass."
+    />
+    <link rel="stylesheet" href="../css/sitter-profile.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
+    <link rel="stylesheet" href="../css/pets.css" />
+  </head>
+  <body>
+    <nav class="site-nav">
+      <a href="../index.html" class="site-nav__brand">PawPass</a>
+      <ul class="site-nav__links">
+        <li><a href="my-pets.html">My Pets</a></li>
+        <li><a href="pet-health.html">Pet Health</a></li>
+      </ul>
+    </nav>
+
+    <div id="ownerView">
+      <div class="page-layout">
+        <aside class="sidebar">
+          <ul class="sidebar__nav">
+            <li>
+              <button type="button" class="sidebar__item active" data-panel="pets">
+                My Pets
+              </button>
+            </li>
+            <li>
+              <button type="button" class="sidebar__item" data-panel="form">
+                Add a Pet
+              </button>
+            </li>
+          </ul>
+        </aside>
+
+        <main class="main-content">
+          <section class="panel active" id="panel-pets">
+            <h1>My Pets</h1>
+            <div class="card">
+              <ul id="petsList" class="pets-list"></ul>
+              <p id="petsStatus" class="status-message" role="status"></p>
+            </div>
+          </section>
+
+          <section class="panel" id="panel-form">
+            <h1 id="petFormHeading">Add a Pet</h1>
+            <div class="card">
+              <form id="petForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+
+                <div class="field-row">
+                  <div>
+                    <label for="species">Species</label>
+                    <select id="species" name="species" required>
+                      <option value="Dog">Dog</option>
+                      <option value="Cat">Cat</option>
+                      <option value="Rabbit">Rabbit</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="breed">Breed</label>
+                    <input type="text" id="breed" name="breed" />
+                  </div>
+                </div>
+
+                <label for="feeding">Feeding</label>
+                <input
+                  type="text"
+                  id="feeding"
+                  name="feeding"
+                  placeholder="e.g. 1 cup of kibble, twice a day"
+                />
+
+                <label for="allergies">Allergies</label>
+                <input type="text" id="allergies" name="allergies" />
+
+                <label for="medications">Medications</label>
+                <input type="text" id="medications" name="medications" />
+
+                <div class="field-row">
+                  <div>
+                    <label for="vetName">Vet name</label>
+                    <input type="text" id="vetName" name="vetName" />
+                  </div>
+                  <div>
+                    <label for="vetPhone">Vet phone</label>
+                    <input type="tel" id="vetPhone" name="vetPhone" />
+                  </div>
+                </div>
+
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes" rows="2"></textarea>
+
+                <button type="submit" id="petFormSubmitBtn">Add Pet</button>
+                <button type="button" id="cancelEditBtn" class="secondary-btn hidden">
+                  Cancel
+                </button>
+              </form>
+              <p id="petFormStatus" class="status-message" role="status"></p>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <main class="container hidden" id="sharedView">
+      <h1>Quick Facts</h1>
+      <p id="sharedStatus" class="status-message error shown" role="status"></p>
+      <div class="card" id="sharedCard"></div>
+    </main>
+
+    <script type="module" src="../js/pets/myPetsPage.js"></script>
+  </body>
+</html>
