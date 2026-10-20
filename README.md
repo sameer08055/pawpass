@@ -9,10 +9,6 @@ profile, availability, and the sits they've booked.
 - Sree Rachnae Shyam
 - Sai Venkatesh Varun Muruganandam Murali Krishnan
 
-## Class Link
-
-[CS5610 Web Development — add the course link here]
-
 ## Project Objective
 
 When someone takes over temporary care of a pet — a sitter, a neighbor, a
