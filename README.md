@@ -1,5 +1,7 @@
 # PawPass
 
+## Project Description
+
 Pet care, handed off right. PawPass helps pet owners track their pets' health
 and hand off care details to a sitter, and helps sitters manage their
 profile, availability, and the sits they've booked.
@@ -8,6 +10,20 @@ profile, availability, and the sits they've booked.
 
 - Sree Rachnae Shyam
 - Sai Venkatesh Varun Muruganandam Murali Krishnan
+
+## Class Link
+
+[CS5610 Web Development, Fall 2026](https://johnguerra.co/classes/webDevelopment_online_fall_2026/)
+
+## Live Website
+
+Render deployment URL - https://pawpass-g001.onrender.com/index.html
+
+## Video Demo
+
+
+## Presentation Slides
+
 
 ## Project Objective
 
@@ -53,9 +69,6 @@ could text or email.
 ![My Sits page, additional view](./screenshots/my-sits-3.png)
 ![My Sits page, additional view](./screenshots/my-sits-4.png)
 
-## Live Demo
-
-Render deployment URL - https://pawpass-g001.onrender.com/index.html
 
 ---
 
