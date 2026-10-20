@@ -27,8 +27,8 @@ Render deployment URL - https://pawpass-g001.onrender.com/index.html
 
 ## Project Objective
 
-When someone takes over temporary care of a pet — a sitter, a neighbor, a
-family member — the information they need is usually scattered across texts,
+When someone takes over temporary care of a pet - a sitter, a neighbor, a
+family member - the information they need is usually scattered across texts,
 sticky notes, and memory. PawPass solves this handoff problem with two
 independent sides built by each team member:
 
@@ -41,7 +41,7 @@ independent sides built by each team member:
 
 The two sides never read each other's MongoDB collections. The only
 connection between them is a plain-text Quick Facts link that an owner
-shares and a sitter pastes into a booking — the same kind of link anyone
+shares and a sitter pastes into a booking - the same kind of link anyone
 could text or email.
 
 ## Screenshots
@@ -77,7 +77,7 @@ could text or email.
 - **Backend:** Node.js + Express
 - **Database:** MongoDB, accessed with the native Node.js driver (no
   Mongoose)
-- **Frontend:** Vanilla HTML5, CSS3, and ES6 JavaScript modules — no
+- **Frontend:** Vanilla HTML5, CSS3, and ES6 JavaScript modules - no
   frameworks, no server-side rendering
 - **Deployment:** Render
 - **Linting/Formatting:** ESLint + Prettier
@@ -94,17 +94,17 @@ could text or email.
   weight, medication) per pet
 - View upcoming appointments
 - Generate and revoke a read-only **Quick Facts** share link per pet, viewable
-  by anyone with the link — no login required
+  by anyone with the link - no login required
 
 ### Sitter side (Rachna)
 
 - Create and edit a sitter profile: name, bio, location, and pincode
-  (automatically geocoded server-side into map coordinates — no need to type
+  (automatically geocoded server-side into map coordinates - no need to type
   raw latitude/longitude)
 - Add, edit, and remove services offered, each with its own species, daily
   rate, care notes, and whether the sit happens at the owner's home, the
   sitter's home, or either
-- Set availability on an interactive calendar with month/year navigation —
+- Set availability on an interactive calendar with month/year navigation -
   each day defaults to all-day availability, or can be set to a custom time
   range
 - Log, edit, and delete booked sits, attaching an owner's Quick Facts link as
@@ -128,29 +128,29 @@ could text or email.
 ├── README.md
 ├── LICENSE
 │
-├── db/                       — one file per collection, plus the shared connection
+├── db/                       - one file per collection, plus the shared connection
 │   ├── connection.js
 │   ├── pets.js
 │   ├── healthRecords.js
 │   ├── sitterProfiles.js
 │   └── bookings.js
 │
-├── validation/               — one file per collection
+├── validation/               - one file per collection
 │   ├── pet.js
 │   ├── healthRecord.js
 │   ├── sitterProfile.js
 │   └── booking.js
 │
-├── routes/                   — one Express router per collection
+├── routes/                   - one Express router per collection
 │   ├── pets.js
 │   ├── healthRecords.js
 │   ├── sitterProfiles.js
 │   └── bookings.js
 │
 ├── utils/
-│   └── geocodePincode.js     — converts a pincode to lat/lon via OpenStreetMap's Nominatim
+│   └── geocodePincode.js     - converts a pincode to lat/lon via OpenStreetMap's Nominatim
 │
-├── scripts/                  — one-time seed scripts (see below)
+├── scripts/                  - one-time seed scripts (see below)
 │   ├── seedPets.js
 │   ├── datarecords.json
 │   ├── seedMockBookings.js
@@ -159,12 +159,12 @@ could text or email.
 │
 └── public/
     ├── index.html
-    ├── pages/                — one HTML file per page
+    ├── pages/                - one HTML file per page
     │   ├── my-pets.html
     │   ├── pet-health.html
     │   ├── my-sitter-profile.html
     │   └── my-sits.html
-    ├── css/                  — one stylesheet per page/module
+    ├── css/                  - one stylesheet per page/module
     │   ├── home.css
     │   ├── pets.css
     │   ├── pet-health.css
@@ -172,7 +172,7 @@ could text or email.
     │   ├── sidebar.css
     │   └── sits.css
     └── js/
-        ├── config.js         — shared fixed demo identities (no auth in this project)
+        ├── config.js         - shared fixed demo identities (no auth in this project)
         ├── pets/
         ├── health/
         ├── sitterProfile/
@@ -221,7 +221,7 @@ npm run format
 ## Seed Scripts
 
 Three one-time scripts populate the database with realistic or real data.
-Each is safe to re-run — they clear their own previously-seeded data first.
+Each is safe to re-run - they clear their own previously-seeded data first.
 
 ### `scripts/seedPets.js`
 
@@ -239,7 +239,7 @@ Seeds **25 realistic sitter bookings**, also generated with Mockaroo
 (`scripts/mockBookings.json`). Dates are corrected (Mockaroo generates start
 and end dates independently, so this script fixes any row where they ended
 up reversed) and each booking's status is computed from its dates relative
-to today, rather than randomly assigned — a sit that already ended is marked
+to today, rather than randomly assigned - a sit that already ended is marked
 `completed` (or occasionally `cancelled`), a sit starting soon is
 `confirmed`, and anything further out is `requested`. Run with:
 
@@ -297,7 +297,7 @@ node --env-file=.env scripts/seedPetResources.js
 | DELETE | `/api/bookings/:id` | Delete a booking |
 | GET | `/api/health` | Health check (confirms server + DB connection) |
 
-No authentication is used in this project per course guidance — every page
+No authentication is used in this project per course guidance - every page
 agrees on a fixed demo identity (`public/js/config.js`) instead of a login
 system.
 
@@ -307,11 +307,11 @@ system.
 
 We used Claude (Anthropic) for coding assistance, debugging, planning, and
 design guidance throughout this project. [Add any further specifics required
-by your course's disclosure policy — e.g., which parts were written
+by your course's disclosure policy-e.g., which parts were written
 independently vs. with assistance.]
 
 ---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE)
+MIT - see [LICENSE](./LICENSE)
