@@ -37,7 +37,7 @@ export function resetRecordForm() {
 
 export function toggleCompletedRow() {
   const isAppointment = document.getElementById("recordType").value === "appointment";
-  document.getElementById("completedRow").hidden = !isAppointment;
+  document.getElementById("completedRow").classList.toggle("hidden", !isAppointment);
 }
 
 export function setRecordFormMode(mode) {
@@ -48,12 +48,12 @@ export function setRecordFormMode(mode) {
 
   if (mode === "edit") {
     submitBtn.textContent = "Save Changes";
-    cancelBtn.hidden = false;
+    cancelBtn.classList.remove("hidden");
     heading.textContent = "Edit Record";
     petSelect.disabled = true;
   } else {
     submitBtn.textContent = "Add Record";
-    cancelBtn.hidden = true;
+    cancelBtn.classList.add("hidden");
     heading.textContent = "Add a Record";
     petSelect.disabled = false;
   }

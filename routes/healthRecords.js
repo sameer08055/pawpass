@@ -30,7 +30,6 @@ async function ownsPet(ownerId, petId) {
   return Boolean(pet) && pet.ownerId === ownerId;
 }
 
-// GET /api/health-records/upcoming?ownerId=xyz: appointments not marked done
 router.get("/upcoming", async (req, res) => {
   const { ownerId } = req.query;
   if (!ownerId) return res.status(400).json({ error: "ownerId is required." });
@@ -43,7 +42,6 @@ router.get("/upcoming", async (req, res) => {
   }
 });
 
-// GET /api/health-records?ownerId=xyz&petId=&type=&q=&page=1&limit=10
 router.get("/", async (req, res) => {
   const { ownerId, petId, type, q } = req.query;
   if (!ownerId) return res.status(400).json({ error: "ownerId is required." });
@@ -64,7 +62,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST /api/health-records
 router.post("/", async (req, res) => {
   const { valid, errors } = validateHealthRecord(req.body);
   if (!valid) return res.status(400).json({ errors });
@@ -81,7 +78,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT /api/health-records/:id
 router.put("/:id", async (req, res) => {
   const { valid, errors } = validateHealthRecord(req.body);
   if (!valid) return res.status(400).json({ errors });
@@ -99,7 +95,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE /api/health-records/:id
 router.delete("/:id", async (req, res) => {
   try {
     const deleted = await deleteHealthRecord(req.params.id);

@@ -1,6 +1,3 @@
-// { _id, ownerId, name, species, breed, feeding, allergies, medications,
-//   vetName, vetPhone, notes, shareToken, createdAt }
-
 import { randomUUID } from "node:crypto";
 import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
@@ -62,8 +59,6 @@ export async function deletePet(id) {
   const result = await col.deleteOne({ _id: new ObjectId(id) });
   return result.deletedCount > 0;
 }
-
-// Quick Facts share link
 
 export async function createShareToken(id) {
   const col = await collection();

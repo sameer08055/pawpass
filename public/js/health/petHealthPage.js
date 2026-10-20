@@ -27,6 +27,22 @@ let page = 1;
 
 const petName = (id) => pets.find((p) => p._id === id)?.name ?? "Unknown pet";
 
+function showPanel(panelName) {
+  document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
+  document
+    .querySelectorAll(".sidebar__item")
+    .forEach((b) => b.classList.remove("active"));
+  document.getElementById(`panel-${panelName}`).classList.add("active");
+  const navBtn = document.querySelector(`.sidebar__item[data-panel="${panelName}"]`);
+  if (navBtn) navBtn.classList.add("active");
+}
+
+function startCreate() {
+  editingId = null;
+  setRecordFormMode("create");
+  resetRecordForm();
+}
+
 function currentFilters() {
   return {
     ownerId: CURRENT_OWNER_ID,
@@ -54,7 +70,7 @@ async function loadAll() {
   try {
     await Promise.all([loadUpcoming(), loadRecords()]);
   } catch (err) {
-    showStatusMessage("recordsStatus", "Couldn't load records: " + err.message, true);
+    showStatusMessage("upcomingStatus", "Couldn't load records: " + err.message, true);
   }
 }
 
@@ -71,6 +87,13 @@ function toPayload(record, overrides = {}) {
   };
 }
 
+document.querySelectorAll(".sidebar__item").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.panel === "form" && editingId) startCreate();
+    showPanel(btn.dataset.panel);
+  });
+});
+
 document.getElementById("recordForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const values = { ownerId: CURRENT_OWNER_ID, ...readRecordFormValues() };
@@ -83,21 +106,19 @@ document.getElementById("recordForm").addEventListener("submit", async (e) => {
       await createRecord(values);
       showStatusMessage("recordsStatus", "Record added.");
     }
-    editingId = null;
-    setRecordFormMode("create");
-    resetRecordForm();
+    startCreate();
+    showPanel("records");
     await loadAll();
   } catch (err) {
-    showStatusMessage("recordsStatus", err.message, true);
+    showStatusMessage("recordFormStatus", err.message, true);
   }
 });
 
 document.getElementById("recordType").addEventListener("change", toggleCompletedRow);
 
 document.getElementById("cancelRecordEditBtn").addEventListener("click", () => {
-  editingId = null;
-  setRecordFormMode("create");
-  resetRecordForm();
+  startCreate();
+  showPanel("records");
 });
 
 document.getElementById("searchForm").addEventListener("submit", (e) => {
@@ -126,10 +147,10 @@ document.getElementById("upcomingList").addEventListener("click", async (e) => {
 
   try {
     await updateRecord(record._id, toPayload(record, { completed: true }));
-    showStatusMessage("recordsStatus", "Appointment marked done.");
+    showStatusMessage("upcomingStatus", "Appointment marked done.");
     await loadAll();
   } catch (err) {
-    showStatusMessage("recordsStatus", err.message, true);
+    showStatusMessage("upcomingStatus", err.message, true);
   }
 });
 
@@ -144,7 +165,7 @@ document.getElementById("recordsList").addEventListener("click", async (e) => {
       fillRecordForm(record);
       editingId = id;
       setRecordFormMode("edit");
-      document.getElementById("recordForm").scrollIntoView({ behavior: "smooth" });
+      showPanel("form");
     }
 
     if (e.target.classList.contains("delete-record-btn")) {
@@ -162,19 +183,22 @@ async function init() {
   try {
     pets = await fetchMyPets(CURRENT_OWNER_ID);
   } catch (err) {
-    showStatusMessage("recordsStatus", "Couldn't load pets: " + err.message, true);
+    showStatusMessage("upcomingStatus", "Couldn't load pets: " + err.message, true);
     return;
   }
 
   if (pets.length === 0) {
-    showStatusMessage("recordsStatus", "Add a pet on the My Pets page first.", true);
+    document.getElementById("noPetsHint").classList.remove("hidden");
     document.getElementById("recordFormSubmitBtn").disabled = true;
   }
 
   fillPetOptions("recordPet", pets);
   fillPetOptions("filterPet", pets, "All pets");
-  const petId = new window.URLSearchParams(window.location.search).get("petId");
-  if (petId) document.getElementById("filterPet").value = petId;
+  const petId = new URLSearchParams(window.location.search).get("petId");
+  if (petId) {
+    document.getElementById("filterPet").value = petId;
+    showPanel("records");
+  }
 
   toggleCompletedRow();
   await loadAll();

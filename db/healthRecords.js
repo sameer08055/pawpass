@@ -1,7 +1,3 @@
-// { _id, petId, ownerId, type, title, date, notes, completed, createdAt }
-
-// petId is the pet's _id as a string. date is an ISO date string (YYYY-MM-DD).
-
 import { ObjectId } from "mongodb";
 import { getDb } from "./connection.js";
 

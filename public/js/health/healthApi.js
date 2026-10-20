@@ -12,7 +12,7 @@ async function handleResponse(res) {
 }
 
 export async function fetchRecords({ ownerId, petId, type, q, page, limit }) {
-  const params = new window.URLSearchParams({ ownerId, page, limit });
+  const params = new URLSearchParams({ ownerId, page, limit });
   if (petId) params.set("petId", petId);
   if (type) params.set("type", type);
   if (q) params.set("q", q);

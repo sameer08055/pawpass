@@ -35,11 +35,11 @@ export function setFormMode(mode) {
 
   if (mode === "edit") {
     submitBtn.textContent = "Save Changes";
-    cancelBtn.hidden = false;
+    cancelBtn.classList.remove("hidden");
     heading.textContent = "Edit Pet";
   } else {
     submitBtn.textContent = "Add Pet";
-    cancelBtn.hidden = true;
+    cancelBtn.classList.add("hidden");
     heading.textContent = "Add a Pet";
   }
 }

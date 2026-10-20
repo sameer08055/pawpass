@@ -11,7 +11,7 @@ export function showStatusMessage(elementId, message, isError = false) {
   el.textContent = message;
   el.className = isError ? "status-message error" : "status-message success";
   el.classList.add("shown");
-  window.setTimeout(() => el.classList.remove("shown"), 3000);
+  setTimeout(() => el.classList.remove("shown"), 3000);
 }
 
 function shareUrl(token) {
@@ -24,7 +24,7 @@ export function renderPets(pets) {
   list.innerHTML = "";
 
   if (!pets || pets.length === 0) {
-    list.innerHTML = '<li class="empty-note">No pets yet. Add your first pet above.</li>';
+    list.innerHTML = '<li class="empty-note">No pets yet. Add your first pet.</li>';
     return;
   }
 

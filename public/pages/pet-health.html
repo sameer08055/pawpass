@@ -10,6 +10,7 @@
       content="Track your pets' health records and upcoming appointments on PawPass."
     />
     <link rel="stylesheet" href="../css/sitter-profile.css" />
+    <link rel="stylesheet" href="../css/sidebar.css" />
     <link rel="stylesheet" href="../css/pet-health.css" />
   </head>
   <body>
@@ -21,93 +22,127 @@
       </ul>
     </nav>
 
-    <main class="container">
-      <h1>Pet Health</h1>
+    <div class="page-layout">
+      <aside class="sidebar">
+        <ul class="sidebar__nav">
+          <li>
+            <button type="button" class="sidebar__item active" data-panel="upcoming">
+              Upcoming
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="records">
+              Records
+            </button>
+          </li>
+          <li>
+            <button type="button" class="sidebar__item" data-panel="form">
+              Add a Record
+            </button>
+          </li>
+        </ul>
+      </aside>
 
-      <section>
-        <h2>Upcoming Appointments</h2>
-        <ul id="upcomingList" class="records-list"></ul>
-      </section>
-
-      <section>
-        <h2 id="recordFormHeading">Add a Record</h2>
-        <form id="recordForm">
-          <label for="recordPet">Pet</label>
-          <select id="recordPet" name="petId" required></select>
-
-          <div class="field-row">
-            <div>
-              <label for="recordType">Type</label>
-              <select id="recordType" name="type" required>
-                <option value="vet visit">Vet visit</option>
-                <option value="vaccine">Vaccine</option>
-                <option value="medication">Medication</option>
-                <option value="appointment">Appointment</option>
-                <option value="weight">Weight</option>
-              </select>
-            </div>
-            <div>
-              <label for="recordDate">Date</label>
-              <input type="date" id="recordDate" name="date" required />
-            </div>
+      <main class="main-content">
+        <section class="panel active" id="panel-upcoming">
+          <h1>Upcoming Appointments</h1>
+          <div class="card">
+            <ul id="upcomingList" class="records-list"></ul>
+            <p id="upcomingStatus" class="status-message" role="status"></p>
           </div>
+        </section>
 
-          <label for="recordTitle">Title</label>
-          <input
-            type="text"
-            id="recordTitle"
-            name="title"
-            placeholder="e.g. Rabies booster"
-            required
-          />
+        <section class="panel" id="panel-records">
+          <h1>Health Records</h1>
+          <div class="card">
+            <form id="searchForm" role="search">
+              <label for="searchText">Search</label>
+              <input type="search" id="searchText" placeholder="Title or notes" />
 
-          <label for="recordNotes">Notes</label>
-          <textarea id="recordNotes" name="notes" rows="2"></textarea>
+              <div class="field-row">
+                <div>
+                  <label for="filterPet">Pet</label>
+                  <select id="filterPet"></select>
+                </div>
+                <div>
+                  <label for="filterType">Type</label>
+                  <select id="filterType">
+                    <option value="">All types</option>
+                    <option value="vet visit">Vet visit</option>
+                    <option value="vaccine">Vaccine</option>
+                    <option value="medication">Medication</option>
+                    <option value="appointment">Appointment</option>
+                    <option value="weight">Weight</option>
+                  </select>
+                </div>
+              </div>
 
-          <div id="completedRow" class="check-row" hidden>
-            <input type="checkbox" id="recordCompleted" name="completed" />
-            <label for="recordCompleted">Appointment is done</label>
+              <button type="submit">Search</button>
+            </form>
           </div>
-
-          <button type="submit" id="recordFormSubmitBtn">Add Record</button>
-          <button type="button" id="cancelRecordEditBtn" class="secondary-btn" hidden>
-            Cancel
-          </button>
-        </form>
-        <p id="recordsStatus" class="status-message" role="status"></p>
-      </section>
-
-      <section>
-        <h2>Health Records</h2>
-        <form id="searchForm" role="search">
-          <label for="searchText">Search</label>
-          <input type="search" id="searchText" placeholder="Title or notes" />
-
-          <div class="field-row">
-            <div>
-              <label for="filterPet">Pet</label>
-              <select id="filterPet"></select>
-            </div>
-            <div>
-              <label for="filterType">Type</label>
-              <select id="filterType">
-                <option value="">All types</option>
-                <option value="vet visit">Vet visit</option>
-                <option value="vaccine">Vaccine</option>
-                <option value="medication">Medication</option>
-                <option value="appointment">Appointment</option>
-                <option value="weight">Weight</option>
-              </select>
-            </div>
+          <div class="card">
+            <ul id="recordsList" class="records-list"></ul>
+            <div id="pager" class="pager"></div>
+            <p id="recordsStatus" class="status-message" role="status"></p>
           </div>
+        </section>
 
-          <button type="submit">Search</button>
-        </form>
+        <section class="panel" id="panel-form">
+          <h1 id="recordFormHeading">Add a Record</h1>
+          <div class="card">
+            <p id="noPetsHint" class="hint hidden">
+              Add a pet on the My Pets page first.
+            </p>
+            <form id="recordForm">
+              <label for="recordPet">Pet</label>
+              <select id="recordPet" name="petId" required></select>
 
-        <ul id="recordsList" class="records-list"></ul>
-        <div id="pager" class="pager"></div>
-      </section>
-    </main>
+              <div class="field-row">
+                <div>
+                  <label for="recordType">Type</label>
+                  <select id="recordType" name="type" required>
+                    <option value="vet visit">Vet visit</option>
+                    <option value="vaccine">Vaccine</option>
+                    <option value="medication">Medication</option>
+                    <option value="appointment">Appointment</option>
+                    <option value="weight">Weight</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="recordDate">Date</label>
+                  <input type="date" id="recordDate" name="date" required />
+                </div>
+              </div>
+
+              <label for="recordTitle">Title</label>
+              <input
+                type="text"
+                id="recordTitle"
+                name="title"
+                placeholder="e.g. Rabies booster"
+                required
+              />
+
+              <label for="recordNotes">Notes</label>
+              <textarea id="recordNotes" name="notes" rows="2"></textarea>
+
+              <div id="completedRow" class="hidden">
+                <div class="check-row">
+                  <input type="checkbox" id="recordCompleted" name="completed" />
+                  <label for="recordCompleted">Appointment is done</label>
+                </div>
+              </div>
+
+              <button type="submit" id="recordFormSubmitBtn">Add Record</button>
+              <button type="button" id="cancelRecordEditBtn" class="secondary-btn hidden">
+                Cancel
+              </button>
+            </form>
+            <p id="recordFormStatus" class="status-message" role="status"></p>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <script type="module" src="../js/health/petHealthPage.js"></script>
   </body>

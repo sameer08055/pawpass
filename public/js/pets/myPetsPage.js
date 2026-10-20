@@ -9,15 +9,26 @@ import {
   fetchSharedPet,
 } from "./petsApi.js";
 import { renderPets, renderSharedPet, showStatusMessage } from "./petsView.js";
-import {
-  readPetFormValues,
-  fillPetForm,
-  resetPetForm,
-  setFormMode,
-} from "./petForm.js";
+import { readPetFormValues, fillPetForm, resetPetForm, setFormMode } from "./petForm.js";
 
 let pets = [];
 let editingId = null;
+
+function showPanel(panelName) {
+  document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
+  document
+    .querySelectorAll(".sidebar__item")
+    .forEach((b) => b.classList.remove("active"));
+  document.getElementById(`panel-${panelName}`).classList.add("active");
+  const navBtn = document.querySelector(`.sidebar__item[data-panel="${panelName}"]`);
+  if (navBtn) navBtn.classList.add("active");
+}
+
+function startCreate() {
+  editingId = null;
+  setFormMode("create");
+  resetPetForm();
+}
 
 async function loadPets() {
   try {
@@ -29,14 +40,21 @@ async function loadPets() {
 }
 
 async function showSharedPet(token) {
-  document.getElementById("ownerView").hidden = true;
-  document.getElementById("sharedView").hidden = false;
+  document.getElementById("ownerView").classList.add("hidden");
+  document.getElementById("sharedView").classList.remove("hidden");
   try {
     renderSharedPet(await fetchSharedPet(token));
   } catch (err) {
     document.getElementById("sharedStatus").textContent = err.message;
   }
 }
+
+document.querySelectorAll(".sidebar__item").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    if (btn.dataset.panel === "form" && editingId) startCreate();
+    showPanel(btn.dataset.panel);
+  });
+});
 
 document.getElementById("petForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -50,19 +68,17 @@ document.getElementById("petForm").addEventListener("submit", async (e) => {
       await createPet(values);
       showStatusMessage("petsStatus", "Pet added.");
     }
-    editingId = null;
-    setFormMode("create");
-    resetPetForm();
+    startCreate();
+    showPanel("pets");
     await loadPets();
   } catch (err) {
-    showStatusMessage("petsStatus", err.message, true);
+    showStatusMessage("petFormStatus", err.message, true);
   }
 });
 
 document.getElementById("cancelEditBtn").addEventListener("click", () => {
-  editingId = null;
-  setFormMode("create");
-  resetPetForm();
+  startCreate();
+  showPanel("pets");
 });
 
 document.getElementById("petsList").addEventListener("click", async (e) => {
@@ -76,7 +92,7 @@ document.getElementById("petsList").addEventListener("click", async (e) => {
       fillPetForm(pet);
       editingId = id;
       setFormMode("edit");
-      document.getElementById("petForm").scrollIntoView({ behavior: "smooth" });
+      showPanel("form");
     }
 
     if (e.target.classList.contains("delete-pet-btn")) {
@@ -102,7 +118,7 @@ document.getElementById("petsList").addEventListener("click", async (e) => {
   }
 });
 
-const shareToken = new window.URLSearchParams(window.location.search).get("share");
+const shareToken = new URLSearchParams(window.location.search).get("share");
 if (shareToken) {
   showSharedPet(shareToken);
 } else {

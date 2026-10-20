@@ -1,38 +1,7 @@
-[hidden] {
-  display: none !important;
-}
-
-.secondary-btn {
-  margin-top: 16px;
-  margin-left: 8px;
-  background: none;
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.check-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.check-row input {
-  width: auto;
-}
-
-.check-row label {
-  margin: 0;
-}
-
 .records-list {
   list-style: none;
   padding: 0;
-  margin: 16px 0 0;
+  margin: 0;
 }
 
 .record-card {
@@ -45,6 +14,22 @@
   border-left: 5px solid var(--color-border);
   border-radius: 8px;
   margin-bottom: 12px;
+}
+
+.record-card.urgency-border-overdue {
+  border-left-color: #b5581f;
+}
+.record-card.urgency-border-today {
+  border-left-color: #ba7517;
+}
+.record-card.urgency-border-soon {
+  border-left-color: #c9a400;
+}
+.record-card.urgency-border-upcoming {
+  border-left-color: var(--color-accent);
+}
+.record-card.urgency-border-later {
+  border-left-color: var(--color-muted);
 }
 
 .record-main {
@@ -107,48 +92,39 @@
 }
 
 .urgency-overdue {
-  background-color: #fde8e8;
-  color: #8f1d1d;
+  background-color: #fbe9e3;
+  color: #9a3f12;
 }
-
 .urgency-today {
-  background-color: #ffe9c7;
-  color: #7a4300;
+  background-color: #f6e3c4;
+  color: #7a4a0b;
 }
-
 .urgency-soon {
-  background-color: #fff3b8;
-  color: #5e4a00;
+  background-color: #f3ecc2;
+  color: #5e5410;
 }
-
 .urgency-upcoming {
   background-color: var(--color-accent-soft);
   color: var(--color-accent);
 }
-
 .urgency-later {
-  background-color: #e8eaee;
+  background-color: #ece7d8;
   color: var(--color-muted);
 }
 
-.record-card.urgency-border-overdue {
-  border-left-color: #b52d2d;
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.record-card.urgency-border-today {
-  border-left-color: #ba7517;
+.check-row input {
+  width: auto;
 }
 
-.record-card.urgency-border-soon {
-  border-left-color: #c9a400;
-}
-
-.record-card.urgency-border-upcoming {
-  border-left-color: var(--color-accent);
-}
-
-.record-card.urgency-border-later {
-  border-left-color: var(--color-muted);
+.check-row label {
+  margin: 0;
 }
 
 .pager {

@@ -21,7 +21,6 @@ router.param("id", (req, res, next, id) => {
   next();
 });
 
-// GET /api/pets?ownerId=xyz: the pets belonging to that owner
 router.get("/", async (req, res) => {
   const { ownerId } = req.query;
   if (!ownerId) return res.status(400).json({ error: "ownerId is required." });
@@ -34,7 +33,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET /api/pets/shared/:token: public, read-only Quick Facts for a shared pet
 router.get("/shared/:token", async (req, res) => {
   try {
     const pet = await getPetByShareToken(req.params.token);
@@ -48,7 +46,6 @@ router.get("/shared/:token", async (req, res) => {
   }
 });
 
-// GET /api/pets/:id
 router.get("/:id", async (req, res) => {
   try {
     const pet = await getPetById(req.params.id);
@@ -60,7 +57,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// POST /api/pets
 router.post("/", async (req, res) => {
   const { valid, errors } = validatePet(req.body);
   if (!valid) return res.status(400).json({ errors });
@@ -74,7 +70,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT /api/pets/:id
 router.put("/:id", async (req, res) => {
   const { valid, errors } = validatePet(req.body);
   if (!valid) return res.status(400).json({ errors });
@@ -89,7 +84,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE /api/pets/:id: also removes that pet's health records
 router.delete("/:id", async (req, res) => {
   try {
     const deleted = await deletePet(req.params.id);
@@ -102,7 +96,6 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// POST /api/pets/:id/share: create the Quick Facts link
 router.post("/:id/share", async (req, res) => {
   try {
     const token = await createShareToken(req.params.id);
@@ -114,7 +107,6 @@ router.post("/:id/share", async (req, res) => {
   }
 });
 
-// DELETE /api/pets/:id/share: turn the link off
 router.delete("/:id/share", async (req, res) => {
   try {
     const found = await clearShareToken(req.params.id);

@@ -7,11 +7,6 @@ import bookingsRouter from "./routes/bookings.js";
 import petsRouter from "./routes/pets.js";
 import healthRecordsRouter from "./routes/healthRecords.js";
 
-// NOTE: once merged with Sai's side, add his routers here too, e.g.:
-// import petsRouter from "./routes/pets.js";
-// import healthRecordsRouter from "./routes/healthRecords.js";
-// import shareRouter from "./routes/share.js";
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -22,10 +17,6 @@ app.use("/api/sitter-profiles", sitterProfilesRouter);
 app.use("/api/bookings", bookingsRouter);
 app.use("/api/pets", petsRouter);
 app.use("/api/health-records", healthRecordsRouter);
-      
-// app.use("/api/pets", petsRouter);
-// app.use("/api/health-records", healthRecordsRouter);
-// app.use("/api/share", shareRouter);
 
 // quick health check — confirms both the server and the database are reachable
 app.get("/api/health", async (req, res) => {
