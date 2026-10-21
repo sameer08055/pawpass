@@ -21,9 +21,11 @@ Render deployment URL - https://pawpass-g001.onrender.com/index.html
 
 ## Video Demo
 
+https://youtu.be/7bRy1P4S3gQ
 
 ## Presentation Slides
 
+https://docs.google.com/presentation/d/1R6ztz8WDwt21m9eQVhyNU36Znbk4E626J5IbMSbhxDM/edit?usp=sharing
 
 ## Project Objective
 
